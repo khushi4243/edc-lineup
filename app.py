@@ -86,7 +86,7 @@ def apply_dark_theme() -> None:
             border-radius: 10px;
           }
           [data-testid="stExpander"] details summary p {
-            color: #0f1730 !important;
+            color: #e6ecff !important;
             font-weight: 600;
           }
           [data-testid="stMarkdownContainer"] ul {
@@ -232,11 +232,13 @@ def render_grouped_results(grouped: dict[str, list[dict]]) -> None:
         st.info("No artists found.")
         return
 
-    for genre in sorted(grouped.keys(), key=genre_sort_key):
+    columns = st.columns(2)
+    for index, genre in enumerate(sorted(grouped.keys(), key=genre_sort_key)):
         records = grouped[genre]
-        with st.expander(f"{genre} ({len(records)})", expanded=True):
-            for row in records:
-                st.markdown(f"- {row['lineup_entry']}")
+        with columns[index % 2]:
+            with st.expander(f"{genre} ({len(records)})", expanded=True):
+                for row in records:
+                    st.markdown(f"- {row['lineup_entry']}")
 
 
 def make_csv(records: list[dict]) -> str:
