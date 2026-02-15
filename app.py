@@ -75,10 +75,10 @@ def apply_dark_theme() -> None:
             color: white;
           }
           .stDownloadButton > button {
-            color: #000000;
+            color: #0f1730;
           }
           .stDownloadButton > button:hover {
-            color: #000000;
+            color: #0f1730;
           }
           [data-testid="stExpander"] {
             background: #0f1730;
@@ -86,7 +86,7 @@ def apply_dark_theme() -> None:
             border-radius: 10px;
           }
           [data-testid="stExpander"] details summary p {
-            color: #e6ecff !important;
+            color: #0f1730 !important;
             font-weight: 600;
           }
           [data-testid="stMarkdownContainer"] ul {
