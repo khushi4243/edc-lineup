@@ -139,14 +139,14 @@ def strip_set_meta(value: str) -> str:
 
 
 def parse_lineup_text(text: str) -> list[str]:
-    lines = [line.strip() for line in text.splitlines() if line.strip()]
-
     cleaned = []
-    for line in lines:
-        line = re.sub(r"^[•\-*]\s*", "", line).strip()
-        line = re.sub(r"^[0-9]+\.\s*", "", line).strip()
-        if line:
-            cleaned.append(line)
+    for line in text.splitlines():
+        for entry in line.split(","):
+            entry = entry.strip()
+            entry = re.sub(r"^[•\-*]\s*", "", entry).strip()
+            entry = re.sub(r"^[0-9]+\.\s*", "", entry).strip()
+            if entry:
+                cleaned.append(entry)
 
     unique_entries = []
     seen = set()

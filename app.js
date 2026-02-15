@@ -66,14 +66,12 @@ function stripSetMeta(value) {
 }
 
 function parseLineupText(text) {
-  const lines = text
+  const cleaned = text
     .split("\n")
-    .map((line) => line.trim())
-    .filter(Boolean);
-
-  const cleaned = lines
-    .map((line) => line.replace(/^[\u2022\-*]\s*/, "").trim())
-    .map((line) => line.replace(/^[0-9]+\.\s*/, "").trim())
+    .flatMap((line) => line.split(","))
+    .map((entry) => entry.trim())
+    .map((entry) => entry.replace(/^[\u2022\-*]\s*/, "").trim())
+    .map((entry) => entry.replace(/^[0-9]+\.\s*/, "").trim())
     .filter(Boolean);
 
   const unique = new Set();
