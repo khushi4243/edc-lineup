@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Festival Lineup Genre Sorter</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>Festival Lineup Genre Sorter</h1>
+      <p class="subtext">
+        Paste a festival lineup block and group artists by their primary genre.
+      </p>
+
+      <section class="panel">
+        <label for="lineup-input">Lineup Text</label>
+        <textarea
+          id="lineup-input"
+          placeholder="Paste lineup text here..."
+          rows="16"
+        ></textarea>
+        <div class="controls">
+          <button id="parse-btn">Group by Genre</button>
+          <button id="clear-btn" class="ghost">Clear</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div id="stats" class="stats"></div>
+        <div id="results" class="results"></div>
+      </section>
+    </main>
+
+    <script src="./artist-db.js"></script>
+    <script src="./app.js"></script>
+  </body>
+  </html>
