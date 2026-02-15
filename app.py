@@ -85,8 +85,15 @@ def apply_dark_theme() -> None:
             border: 1px solid #2a365e;
             border-radius: 10px;
           }
+          [data-testid="stExpander"] details summary {
+            background: #ffffff !important;
+            border-radius: 8px;
+          }
+          [data-testid="stExpander"] details[open] summary {
+            background: #ffffff !important;
+          }
           [data-testid="stExpander"] details summary p {
-            color: #e6ecff !important;
+            color: #0f1730 !important;
             font-weight: 600;
           }
           [data-testid="stExpander"] details summary svg {
