@@ -88,9 +88,16 @@ def apply_dark_theme() -> None:
           [data-testid="stExpander"] details summary {
             background: #ffffff !important;
             border-radius: 8px;
+            color: #0f1730 !important;
           }
           [data-testid="stExpander"] details[open] summary {
             background: #ffffff !important;
+          }
+          [data-testid="stExpander"] details summary::marker {
+            color: #0f1730 !important;
+          }
+          [data-testid="stExpander"] details summary::-webkit-details-marker {
+            color: #0f1730 !important;
           }
           [data-testid="stExpander"] details summary p {
             color: #0f1730 !important;
