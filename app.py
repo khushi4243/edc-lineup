@@ -89,6 +89,10 @@ def apply_dark_theme() -> None:
             color: #0f1730 !important;
             font-weight: 600;
           }
+          [data-testid="stExpander"] details summary svg {
+            fill: #0f1730 !important;
+            color: #0f1730 !important;
+          }
           [data-testid="stMarkdownContainer"] ul {
             margin-top: 0.25rem;
           }
