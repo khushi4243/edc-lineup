@@ -53,10 +53,14 @@ def apply_dark_theme() -> None:
             color: #e6ecff;
             border: 1px solid #2b3965;
             border-radius: 8px;
+            caret-color: #8e9abb;
           }
           [data-testid="stTextArea"] textarea::placeholder {
             color: #8e9abb;
             opacity: 1;
+          }
+          [data-testid="stTextArea"] textarea:focus::placeholder {
+            color: transparent;
           }
           .stButton > button {
             background: #4c67b2;
