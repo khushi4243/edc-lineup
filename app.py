@@ -26,6 +26,62 @@ GENRE_PRIORITY = [
 ]
 
 
+def apply_dark_theme() -> None:
+    st.markdown(
+        """
+        <style>
+          .stApp {
+            background: #0b1020;
+            color: #e6ecff;
+          }
+          [data-testid="stHeader"] {
+            background: rgba(11, 16, 32, 0.85);
+          }
+          [data-testid="stToolbar"] {
+            right: 1rem;
+          }
+          h1, h2, h3, p, label, span, div {
+            color: #e6ecff;
+          }
+          .stCaption {
+            color: #a4b1d3;
+          }
+          [data-testid="stTextArea"] textarea {
+            background: #0a1025;
+            color: #e6ecff;
+            border: 1px solid #2b3965;
+            border-radius: 8px;
+          }
+          .stButton > button {
+            background: #4c67b2;
+            color: white;
+            border: 1px solid #4c67b2;
+            border-radius: 8px;
+            font-weight: 600;
+          }
+          .stButton > button:hover {
+            border-color: #5f79c7;
+            background: #5f79c7;
+            color: white;
+          }
+          [data-testid="stExpander"] {
+            background: #0f1730;
+            border: 1px solid #2a365e;
+            border-radius: 10px;
+          }
+          [data-testid="stExpander"] details summary p {
+            color: #e6ecff !important;
+            font-weight: 600;
+          }
+          [data-testid="stMarkdownContainer"] ul {
+            margin-top: 0.25rem;
+          }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
 def load_seed_artists() -> list[dict]:
     data_path = Path(__file__).parent / "seed_artists.json"
     return json.loads(data_path.read_text(encoding="utf-8"))
@@ -155,6 +211,7 @@ def render_grouped_results(grouped: dict[str, list[dict]]) -> None:
 
 def main() -> None:
     st.set_page_config(page_title="Festival Lineup Genre Sorter", layout="wide")
+    apply_dark_theme()
     st.title("Festival Lineup Genre Sorter")
     st.caption("Paste lineup text and group artists by primary genre.")
 
