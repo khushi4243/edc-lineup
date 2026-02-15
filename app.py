@@ -1,4 +1,6 @@
 import json
+import csv
+import io
 import re
 import unicodedata
 from collections import defaultdict
@@ -52,6 +54,10 @@ def apply_dark_theme() -> None:
             border: 1px solid #2b3965;
             border-radius: 8px;
           }
+          [data-testid="stTextArea"] textarea::placeholder {
+            color: #8e9abb;
+            opacity: 1;
+          }
           .stButton > button {
             background: #4c67b2;
             color: white;
@@ -70,11 +76,25 @@ def apply_dark_theme() -> None:
             border-radius: 10px;
           }
           [data-testid="stExpander"] details summary p {
-            color: #e6ecff !important;
+            color: #9fb0de !important;
             font-weight: 600;
           }
           [data-testid="stMarkdownContainer"] ul {
             margin-top: 0.25rem;
+          }
+          .chip-row {
+            margin: 0.5rem 0 0.25rem 0;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+          }
+          .chip {
+            background: #1f2a4d;
+            border: 1px solid #35508f;
+            color: #dbe6ff;
+            border-radius: 999px;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.8rem;
           }
         </style>
         """,
@@ -209,6 +229,18 @@ def render_grouped_results(grouped: dict[str, list[dict]]) -> None:
                 st.markdown(f"- {row['lineup_entry']}")
 
 
+def make_csv(records: list[dict]) -> str:
+    buffer = io.StringIO()
+    writer = csv.DictWriter(
+        buffer,
+        fieldnames=["lineup_entry", "matched_artist", "primary_genre", "secondary_genre"],
+    )
+    writer.writeheader()
+    for row in records:
+        writer.writerow(row)
+    return buffer.getvalue()
+
+
 def main() -> None:
     st.set_page_config(page_title="Festival Lineup Genre Sorter", layout="wide")
     apply_dark_theme()
@@ -225,8 +257,41 @@ def main() -> None:
         records = [to_genre_record(entry, artist_db) for entry in entries]
         grouped = group_by_primary_genre(records)
         unknown_count = sum(1 for r in records if r["primary_genre"] == "Unknown")
+        matched_count = len(records) - unknown_count
+        match_rate = int((matched_count / len(records)) * 100) if records else 0
+
+        c1, c2, c3 = st.columns(3)
+        c1.metric("Parsed Artists", len(records))
+        c2.metric("Matched", matched_count)
+        c3.metric("Match Rate", f"{match_rate}%")
+        st.progress(match_rate / 100 if records else 0)
+
+        sorted_genres = sorted(grouped.items(), key=lambda item: len(item[1]), reverse=True)
+        top_genres = sorted_genres[:3]
+        if top_genres:
+            chips = "".join([f"<span class='chip'>{g} ({len(v)})</span>" for g, v in top_genres])
+            st.markdown("Top Genres")
+            st.markdown(f"<div class='chip-row'>{chips}</div>", unsafe_allow_html=True)
+
+        genre_options = sorted(grouped.keys(), key=genre_sort_key)
+        selected_genres = st.multiselect(
+            "Filter Genres",
+            options=genre_options,
+            default=genre_options,
+            help="Show only selected genres in the grouped results.",
+        )
+        filtered_grouped = {g: grouped[g] for g in selected_genres}
+
         st.write(f"{len(records)} unique lineup entries parsed. {unknown_count} unmatched (Unknown).")
-        render_grouped_results(grouped)
+
+        st.download_button(
+            "Download Results CSV",
+            data=make_csv(records),
+            file_name="lineup_genre_results.csv",
+            mime="text/csv",
+        )
+
+        render_grouped_results(filtered_grouped)
 
 
 if __name__ == "__main__":
