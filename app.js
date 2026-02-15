@@ -1,26 +1,22 @@
 const REQUIRED_GENRES = [
-  "Dubstep",
+  "House",
   "Tech House",
-  "Techno",
-  "Bass House",
   "Melodic/Progressive House",
+  "Pop EDM",
+  "Techno",
   "Hardstyle",
-  "DnB",
-  "Riddim"
+  "Dubstep",
+  "Drums & Bass",
+  "Trap",
+  "Hard Techno",
+  "Melodic Dubstep",
+  "Riddim",
+  "Afro House",
+  "Psytrance",
+  "Fonk"
 ];
 
-const GENRE_PRIORITY = [
-  ...REQUIRED_GENRES,
-  "Trance",
-  "Psytrance",
-  "Melodic Bass",
-  "Bass Music",
-  "UK Garage/Bassline",
-  "House",
-  "Afro House",
-  "Pop EDM",
-  "Unknown"
-];
+const GENRE_PRIORITY = [...REQUIRED_GENRES, "Unknown"];
 
 const inputEl = document.getElementById("lineup-input");
 const parseBtn = document.getElementById("parse-btn");

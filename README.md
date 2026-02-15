@@ -23,6 +23,6 @@ Then open:
 ## Notes
 
 - Input is paste-only (no file upload).
-- Genres include required categories: Dubstep, Tech House, Techno, Bass House, Melodic/Progressive House, Hardstyle, DnB, Riddim.
+- Genres are limited to: House, Tech House, Melodic/Progressive House, Pop EDM, Techno, Hardstyle, Dubstep, Drums & Bass, Trap, Hard Techno, Melodic Dubstep, Riddim, Afro House, Psytrance, Fonk.
 - Unknown artists are grouped under `Unknown`.
 - Seed data is in `artist-db.js`.
