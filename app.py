@@ -80,7 +80,7 @@ def apply_dark_theme() -> None:
             border-radius: 10px;
           }
           [data-testid="stExpander"] details summary p {
-            color: #9fb0de !important;
+            color: #0f1730 !important;
             font-weight: 600;
           }
           [data-testid="stMarkdownContainer"] ul {
@@ -253,6 +253,11 @@ def main() -> None:
 
     artist_db = build_artist_db(load_seed_artists())
 
+    if "records" not in st.session_state:
+        st.session_state.records = []
+    if "grouped" not in st.session_state:
+        st.session_state.grouped = {}
+
     lineup_text = st.text_area("Lineup Text", height=340, placeholder="Paste lineup text here...")
     run = st.button("Group by Genre", type="primary")
 
@@ -260,6 +265,12 @@ def main() -> None:
         entries = parse_lineup_text(lineup_text)
         records = [to_genre_record(entry, artist_db) for entry in entries]
         grouped = group_by_primary_genre(records)
+        st.session_state.records = records
+        st.session_state.grouped = grouped
+
+    if st.session_state.records:
+        records = st.session_state.records
+        grouped = st.session_state.grouped
         unknown_count = sum(1 for r in records if r["primary_genre"] == "Unknown")
         matched_count = len(records) - unknown_count
         match_rate = int((matched_count / len(records)) * 100) if records else 0
