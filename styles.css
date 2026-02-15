@@ -83,8 +83,14 @@ button:hover {
 
 .results {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
+}
+
+@media (max-width: 700px) {
+  .results {
+    grid-template-columns: 1fr;
+  }
 }
 
 .genre-card {
