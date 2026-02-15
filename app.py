@@ -74,6 +74,12 @@ def apply_dark_theme() -> None:
             background: #5f79c7;
             color: white;
           }
+          .stDownloadButton > button {
+            color: #000000;
+          }
+          .stDownloadButton > button:hover {
+            color: #000000;
+          }
           [data-testid="stExpander"] {
             background: #0f1730;
             border: 1px solid #2a365e;

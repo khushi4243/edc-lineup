@@ -87,12 +87,6 @@ button:hover {
   gap: 12px;
 }
 
-@media (max-width: 700px) {
-  .results {
-    grid-template-columns: 1fr;
-  }
-}
-
 .genre-card {
   border: 1px solid #2a365e;
   border-radius: 8px;
@@ -106,6 +100,13 @@ button:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: #e6ecff;
+}
+
+.genre-card summary,
+.genre-card summary:focus,
+.genre-card summary:active {
+  color: #e6ecff;
 }
 
 .count {
